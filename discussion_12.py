@@ -63,7 +63,45 @@ def problematic_salary(cur, conn):
 
 # TASK 4: VISUALIZATION
 def visualization_salary_data(cur, conn):
-    pass
+    plt.figure()
+
+    cur.execute(
+        """
+        SELECT jobs.job_title, employees.salary
+        FROM employees
+        JOIN jobs ON jobs.job_id = employees.job_id
+        """
+    )
+    res = cur.fetchall()
+    conn.commit()
+    x,y=zip(*res)
+    plt.scatter(x,y)
+
+    cur.execute(
+        """
+        SELECT jobs.job_title, jobs.max_salary
+        FROM jobs
+        """
+    )
+    res = cur.fetchall()
+    conn.commit()
+    x.y=zip(*res)
+    plt.scatter(x,y,color = 'red', marker= 'x')
+
+    cur.execute(
+        """
+        SELECT jobs.job_title, jobs.max_salary
+        FROM jobs
+        """
+    )
+    res = cur.fetchall()
+    conn.commit()
+    x,y=zip(*res)
+    plt.scatter(x,y,color = 'red', marker= 'x')
+
+    plt.xticks(rotation = 45)
+    plt.tight_layout()
+    plt.show()
 
 class TestDiscussion12(unittest.TestCase):
     def setUp(self) -> None:
